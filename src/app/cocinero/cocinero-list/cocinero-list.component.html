@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <h3>Lista de Cocineros</h3>
+  <button class="btn btn-primary mb-3" (click)="abrirModal()">Registrar Nuevo Cocinero</button>
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>DNI</th>
+        <th>Teléfono</th>
+        <th>Salario</th>
+        <th>Usuario</th>
+        <th>Fecha Ingreso</th>
+        <th>Cargos</th>
+        <th>Especialidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cocinero of cocineros; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ cocinero.nombre }}</td>
+        <td>{{ cocinero.dni }}</td>
+        <td>{{ cocinero.telefono }}</td>
+        <td>{{ cocinero.salario | currency:'PEN' }}</td>
+        <td>{{ cocinero.usuario }}</td>
+        <td>{{ cocinero.fechaIngreso | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <ul class="list-unstyled mb-0">
+            <li *ngFor="let cargo of cocinero.cargos">{{ cargo }}</li>
+          </ul>
+        </td>
+        <td>{{ cocinero.especialidad }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="editarCocinero(cocinero)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarCocinero(cocinero.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal de creación o edición -->
+<app-cocinero-form
+  [cocineroUpdate]="cocineroSeleccionado"
+  (cocineroCreate)="cargarCocineros()">
+</app-cocinero-form>
