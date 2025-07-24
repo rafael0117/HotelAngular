@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <h3>Lista de Administradores</h3>
+  <button class="btn btn-primary mb-3" (click)="openModal()">Registrar Nuevo Administrador</button>
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>DNI</th>
+        <th>Teléfono</th>
+        <th>Salario</th>
+        <th>Usuario</th>
+        <th>Fecha Ingreso</th>
+        <th>Cargos</th>
+        <th>Nivel de Acceso</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let admin of administrador; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ admin.nombre }}</td>
+        <td>{{ admin.dni }}</td>
+        <td>{{ admin.telefono }}</td>
+        <td>{{ admin.salario | currency:'PEN' }}</td>
+        <td>{{ admin.usuario }}</td>
+        <td>{{ admin.fechaIngreso | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <ul class="list-unstyled mb-0">
+            <li *ngFor="let cargo of admin.cargos">{{ cargo }}</li>
+          </ul>
+        </td>
+        <td>{{ admin.nivelAcceso }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="updateAdmin(admin)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteAdmin(admin.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal de creación o edición -->
+<app-administrador-form
+  [administradorUpdate]="administradorSeleccionado"
+  (administradorCreate)="readAdmin()">
+</app-administrador-form>
