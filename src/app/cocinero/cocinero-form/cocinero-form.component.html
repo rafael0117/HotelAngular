@@ -1,0 +1,61 @@
+<div class="modal fade" id="nuevoCocineroModal" tabindex="-1" aria-labelledby="modalCocineroLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="formCocinero" (ngSubmit)="addCocinero()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalCocineroLabel">
+            {{ cocineroUpdate ? 'Editar Cocinero' : 'Nuevo Cocinero' }}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre">
+          </div>
+          <div class="mb-3">
+            <label>DNI</label>
+            <input type="text" class="form-control" formControlName="dni">
+          </div>
+          <div class="mb-3">
+            <label>Teléfono</label>
+            <input type="text" class="form-control" formControlName="telefono">
+          </div>
+          <div class="mb-3">
+            <label>Salario</label>
+            <input type="number" class="form-control" formControlName="salario">
+          </div>
+          <div class="mb-3">
+            <label>Usuario</label>
+            <input type="text" class="form-control" formControlName="usuario">
+          </div>
+          <div class="mb-3">
+            <label>Contraseña</label>
+            <input type="password" class="form-control" formControlName="password">
+          </div>
+          <div class="mb-3">
+        <label>Cargos</label>
+        <select class="form-select" formControlName="cargos" multiple>
+            <option *ngFor="let cargo of cargos" [value]="cargo">{{ cargo }}</option>
+        </select>
+        </div>
+
+          <div class="mb-3">
+            <label>Fecha de Ingreso</label>
+            <input type="date" class="form-control" formControlName="fechaIngreso">
+          </div>
+          <div class="mb-3">
+            <label>Especialidad</label>
+            <input type="text" class="form-control" formControlName="especialidad">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">
+            {{ cocineroUpdate ? 'Actualizar' : 'Registrar' }}
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
