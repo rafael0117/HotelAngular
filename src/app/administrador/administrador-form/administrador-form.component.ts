@@ -41,6 +41,7 @@ export class AdministradorFormComponent implements OnChanges {
     });
   }
 
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['administradorUpdate'] && this.administradorUpdate) {
       this.formAdministrador.patchValue(this.administradorUpdate);

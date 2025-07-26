@@ -1,1 +1,54 @@
-<p>mantenimiento-list works!</p>
+<div class="container mt-4">
+  <h3>Lista de Personal de Mantenimiento</h3>
+  <button class="btn btn-primary mb-3" (click)="openModal()">Registrar Nuevo Personal</button>
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>DNI</th>
+        <th>Teléfono</th>
+        <th>Salario</th>
+        <th>Usuario</th>
+        <th>Fecha Ingreso</th>
+        <th>Cargos</th>
+        <th>Área Responsable</th>
+        <th>Disponible</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of mantenimiento; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ m.nombre }}</td>
+        <td>{{ m.dni }}</td>
+        <td>{{ m.telefono }}</td>
+        <td>{{ m.salario | currency:'PEN' }}</td>
+        <td>{{ m.usuario }}</td>
+        <td>{{ m.fechaIngreso | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <ul class="list-unstyled mb-0">
+            <li *ngFor="let cargo of m.cargos">{{ cargo }}</li>
+          </ul>
+        </td>
+        <td>{{ m.areaResponsable }}</td>
+        <td>
+          <span [class.text-success]="m.disponible" [class.text-danger]="!m.disponible">
+            {{ m.disponible ? 'Sí' : 'No' }}
+          </span>
+        </td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="mantenimientoUpdate(m)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteMantenimiento(m.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal de creación o edición -->
+<app-mantenimiento-form
+  [mantenimientoUpdate]="mantenimientoSeleccionado"
+  (mantenimientoCreate)="readMantenimiento()">
+</app-mantenimiento-form>
