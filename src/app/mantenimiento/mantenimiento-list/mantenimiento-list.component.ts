@@ -4,6 +4,8 @@ import { MantenimientoFormComponent } from '../mantenimiento-form/mantenimiento-
 import { Mantenimiento } from '../../interface/mantenimiento';
 import { MantenimientoService } from '../../service/mantenimiento.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-mantenimiento-list',
@@ -41,4 +43,30 @@ export class MantenimientoListComponent implements OnInit {
       modal.show();
     }
   }
+  updateMantenimiento(mantenimiento: Mantenimiento) {
+  this.mantenimientoSeleccionado = { ...mantenimiento };
+  const modalElement = document.getElementById('nuevoMantenimientoModal');
+  if (modalElement) {
+    const modal = new Modal(modalElement);
+    modal.show();
+  }
+}
+
+deleteMantenimiento(idMantenimiento: number) {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'Esta acción eliminará el registro de mantenimiento permanentemente',
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.mantenimientoService.deleteMantenimiento(idMantenimiento).subscribe(() => {
+        Swal.fire('Eliminado', 'El registro de mantenimiento ha sido eliminado', 'success');
+        this.readMantenimiento();
+      });
+    }
+  });
+}
 }
